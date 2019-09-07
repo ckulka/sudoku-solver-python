@@ -13,7 +13,7 @@ def test_incomplete_sudoku():
         [None, None, None, None, None, None, None, None, None],
         [None, None, None, None, None, None, None, None, None]
     ]
-    actual = sudoku_verifier.is_sudoku_solved(sudoku)
+    actual = sudoku_verifier.is_solved(sudoku)
     assert actual is False
 
 
@@ -29,9 +29,8 @@ def test_incorrectly_solved():
         [6, 2, 8, 4, 3, 7, 7, 1, 5],
         [5, 7, 4, 9, 1, 6, 8, 2, 3]
     ]
-    actual = sudoku_verifier.is_sudoku_solved(sudoku)
-    assert actual is True
-
+    actual = sudoku_verifier.is_solved(sudoku)
+    assert actual is False
 
 
 def test_correctly_solved():
@@ -46,5 +45,5 @@ def test_correctly_solved():
         [6, 2, 8, 4, 3, 7, 9, 1, 5],
         [5, 7, 4, 9, 1, 6, 8, 2, 3]
     ]
-    actual = sudoku_verifier.is_sudoku_solved(sudoku)
+    actual = sudoku_verifier.is_solved(sudoku)
     assert actual is True
