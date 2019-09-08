@@ -2,13 +2,13 @@ from sudoku_solver import sudoku_verifier
 
 
 def solve(sudoku):
-    for x in range(8):
-        for y in range(8):
+    for x in range(9):
+        for y in range(9):
             # Find the next empty field
             if sudoku[x][y] is None:
                 # Try out one number after another
                 for number in range(1, 10):
-                    # print(f'Attempting number {number} in {x}/{y}')
+                    print(f'Attempting number {number} in {x}/{y}')
                     sudoku[x][y] = number
                     # If we found a valid solution, return the result
                     if solve(sudoku) is not None:
