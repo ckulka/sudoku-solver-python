@@ -14,7 +14,7 @@ def test_parse_with_for_loop():
         [5, 7, 4, 9, 1, 6, 8, 2, None]
     ]
 
-    input_file = "test/unsolved_sudokus/easy.txt"
+    input_file = "test/data/easy.txt"
     actual = sudoku_file_reader.parse_with_for_loop(input_file)
     # sudoku_verifier.print_sudoku(actual)
 
@@ -34,7 +34,7 @@ def test_parse_with_lambdas():
         [5, 7, 4, 9, 1, 6, 8, 2, None]
     ]
 
-    input_file = "test/unsolved_sudokus/easy.txt"
+    input_file = "test/data/easy.txt"
     actual = sudoku_file_reader.parse_with_lambdas(input_file)
     # sudoku_verifier.print_sudoku(actual)
 
