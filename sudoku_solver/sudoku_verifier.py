@@ -35,7 +35,7 @@ def is_column_complete(sudoku, column_index):
     """
     :returns: true if the column has all numbers
     """
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    numbers = list(range(1, 10))
     for row_index in range(9):
         number = sudoku[row_index][column_index]
         if number not in numbers:
@@ -50,7 +50,7 @@ def is_quadrant_solved(sudoku, quadrant_index):
     """
     :returns: true if the 3x3 quadrant is solved
     """
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    numbers = list(range(1, 10))
     x_offset = (quadrant_index % 3) * 3
     y_offset = int(quadrant_index / 3) * 3
     for x in range(3):

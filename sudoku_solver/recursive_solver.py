@@ -8,7 +8,7 @@ def solve(sudoku):
             if sudoku[x][y] is None:
                 # Try out one number after another
                 for number in range(1, 10):
-                    print(f'Attempting number {number} in {x}/{y}')
+                    # print(f'Attempting number {number} in {x}/{y}')
                     sudoku[x][y] = number
                     # If we found a valid solution, return the result
                     if solve(sudoku) is not None:
