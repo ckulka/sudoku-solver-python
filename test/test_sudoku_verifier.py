@@ -47,3 +47,106 @@ def test_correctly_solved():
     ]
     actual = sudoku_verifier.is_solved(sudoku)
     assert actual is True
+
+
+def test_correct_quadrant():
+    quadrant = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 0)
+    assert actual is True
+
+
+def test_incomplete_quadrant():
+    quadrant = [
+        [1, 2, 3],
+        [4, None, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 0)
+    assert actual is False
+
+
+def test_incorrect_quadrant_row():
+    quadrant = [
+        [1, 2, 3],
+        [4, 6, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 0)
+    assert actual is False
+
+
+def test_correct_quadrant_row_offset_1():
+    quadrant = [
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 1)
+    assert actual is True
+
+
+def test_correct_quadrant_row_offset_2():
+    quadrant = [
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 2)
+    assert actual is True
+
+
+def test_correct_quadrant_column_and_row_offset():
+    quadrant = [
+        [None, None, None, None, None, None],
+        [None, None, None, None, None, None],
+        [None, None, None, None, None, None],
+        [None, None, None, 1, 2, 3],
+        [None, None, None, 4, 5, 6],
+        [None, None, None, 7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 4)
+    assert actual is True
+
+
+def test_incorrect_quadrant_column():
+    quadrant = [
+        [1, 5, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 0)
+    assert actual is False
+
+
+def test_correct_quadrant_column_offset_1():
+    quadrant = [
+        [None, None, None, 1, 2, 3],
+        [None, None, None, 4, 5, 6],
+        [None, None, None, 7, 8, 9]
+    ]
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 3)
+    assert actual is True
+
+
+def test_correct_quadrant_column_offset_2():
+    quadrant = [
+        [None, None, None, None, None, None, 1, 2, 3],
+        [None, None, None, None, None, None, 4, 5, 6],
+        [None, None, None, None, None, None, 7, 8, 9]
+    ]
+
+    actual = sudoku_verifier.is_quadrant_solved(quadrant, 6)
+    assert actual is True
