@@ -21,7 +21,7 @@ def solve(sudoku):
     # print('Verifying possible solution:')
     # sudoku_verifier.print_sudoku(sudoku)
     if sudoku_verifier.is_solved(sudoku):
-        print('Solution is valid!')
+        # print('Solution is valid!')
         return sudoku
     else:
         # print('Solution is not valid, stepping back')
