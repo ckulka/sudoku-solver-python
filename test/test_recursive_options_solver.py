@@ -33,5 +33,5 @@ def test_realistic_easy_sudoku():
     ]
 
     actual = recursive_options_solver.solve(sudoku)
-    sudoku_verifier.print_sudoku(sudoku)
+    # recursive_options_solver.print_sudoku(actual)
     assert sudoku_verifier.is_solved(actual) is True

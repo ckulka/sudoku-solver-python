@@ -25,9 +25,13 @@ def is_row_complete(sudoku, row_index):
     """
     :returns: true if the row has all numbers
     """
+    if sudoku is None or sudoku[row_index] is None:
+        return False
+
     for number in range(1, 10):
         if number not in sudoku[row_index]:
             return False
+
     return True
 
 
