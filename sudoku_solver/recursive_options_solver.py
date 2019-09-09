@@ -4,16 +4,40 @@ from typing import List, Optional
 from sudoku_solver import sudoku_verifier
 
 
-def solve(sudoku) -> Optional[List]:
-    options = generate_options(sudoku)
+def solve(sudoku, options=None, x_offset=0, y_offset=0) -> Optional[List]:
+    """
+    Attempt to solve the Sudoku.
 
-    for y in range(9):
-        for x in range(9):
-            if sudoku[y][x] is not None:
-                set_field(sudoku, options, sudoku[y][x], x, y)
+    :return: Solved Sudoku or None if no solution is found
+    """
+    if options is None:
+        options = generate_options(sudoku)
 
-    # print("Fields are populated, trying to solve Sudoku")
-    return solve_recursive(sudoku, options, 0, 0)
+    for y in range(y_offset, 9):
+        for x in range(x_offset, 9):
+            # Find the next empty field
+            if sudoku[y][x] is None:
+                # Try out one number after another
+                for number in options[y][x]:
+                    # print(f'Attempting number {number} in {x}/{y}')
+                    sudoku_copy = copy.deepcopy(sudoku)
+                    options_copy = copy.deepcopy(options)
+                    set_field(sudoku_copy, options_copy, number, x, y)
+                    sudoku_copy = solve(sudoku_copy, options_copy, x + 1, y + 1)
+
+                    # If we found a valid solution, return the result
+                    if sudoku_copy is not None:
+                        return sudoku_copy
+                # No number is valid, therefore abort
+                return None
+
+    # All fields are populated, verify the result
+    if sudoku_verifier.is_solved(sudoku):
+        # print('Solution is valid!')
+        return sudoku
+    else:
+        # print('Solution is not valid, stepping back')
+        return None
 
 
 def generate_options(sudoku) -> List:
@@ -25,6 +49,11 @@ def generate_options(sudoku) -> List:
                 options[y].append(set(range(1, 10)))
             else:
                 options[y].append([sudoku[y][x]])
+
+    for y in range(9):
+        for x in range(9):
+            if sudoku[y][x] is not None:
+                set_field(sudoku, options, sudoku[y][x], x, y)
 
     return options
 
@@ -54,33 +83,6 @@ def set_field(sudoku, options, value, x, y):
     update_column_options(sudoku, options, value, x)
     update_quadrant_options(sudoku, options, value, x, y)
     # print_sudoku(sudoku, options)
-
-
-def solve_recursive(sudoku, options, x_offset, y_offset) -> Optional[List]:
-    for y in range(y_offset, 9):
-        for x in range(x_offset, 9):
-            # Find the next empty field
-            if sudoku[y][x] is None:
-                # Try out one number after another
-                for number in options[y][x]:
-                    # print(f'Attempting number {number} in {x}/{y}')
-                    sudoku_sandbox = copy.deepcopy(sudoku)
-                    options_sandbox = copy.deepcopy(options)
-                    set_field(sudoku_sandbox, options_sandbox, number, x, y)
-                    # If we found a valid solution, return the result
-                    sudoku_sandbox = solve(sudoku_sandbox)
-                    if sudoku_sandbox is not None:
-                        return sudoku_sandbox
-                # No number is valid, therefore abort
-                return None
-
-    # All fields are populated, verify the result
-    if sudoku_verifier.is_solved(sudoku):
-        # print('Solution is valid!')
-        return sudoku
-    else:
-        # print('Solution is not valid, stepping back')
-        return None
 
 
 def update_row_options(sudoku, options, value, y):
@@ -116,7 +118,7 @@ def update_column_options(sudoku, options, value, x):
 
 
 def update_quadrant_options(sudoku, options, value, x, y):
-    """Updates the available options of all fields in the quadrants"""
+    """Updates the available options of all fields in the quadrant"""
     x_offset = int(x / 3) * 3
     y_offset = int(y / 3) * 3
     for y in range(y_offset, y_offset + 3):
