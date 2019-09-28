@@ -8,6 +8,10 @@ def solve(sudoku, options=None, x_offset=0, y_offset=0) -> Optional[List]:
     """
     Attempt to solve the Sudoku.
 
+    :param sudoku: two-dimensional array, where sudoku[y][x]
+    :param options: list of possible values for each field, where options[y][x]
+    :param x_offset: continue to solve from this position
+    :param y_offset: continue to solve from this position
     :return: Solved Sudoku or None if no solution is found
     """
     if options is None:
